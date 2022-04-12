@@ -1,19 +1,12 @@
 const express = require("express");
-const { json } = require("express/lib/response");
+
 const path = require("path");
 
-const rootDir = require("../util/path");
 const router = express.Router();
-const products = [];
+const productRoutes = require("../controllers/products");
 
-router.get("/add-product", (req, res, next) => {
-  res.sendFile(path.join(rootDir, "views", "add-product.html"));
-});
-
-router.post("/add-product", (req, res, next) => {
-  products.push({ title: req.body.title });
-  res.redirect("/");
-});
+router.get("/add-product", productRoutes.getAddProduct);
+router.post("/add-product", productRoutes.postAddProduct);
 
 // router.post("/product", (req, res, next) => {
 //   console.log("admin/product", JSON.stringify(req.body));
@@ -21,5 +14,6 @@ router.post("/add-product", (req, res, next) => {
 // });
 
 // module.exports = router;
-exports.routes = router;
-exports.products = products;
+// exports.routes = router;
+// exports.products = products;
+module.exports = router;
